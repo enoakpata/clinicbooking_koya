@@ -2,11 +2,15 @@
 // Uses TEST_DATABASE_URL if set, otherwise DATABASE_URL. WARNING: tests call /reset, which wipes data.
 require('dotenv').config();
 if (process.env.TEST_DATABASE_URL) process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
+// Production uses a pool of 3 per serverless instance (concurrent requests land on separate
+// instances). This test process serves all 20 concurrent requests itself, so give it more.
+process.env.PG_POOL_MAX = process.env.PG_POOL_MAX || '10';
 
 const { test, before, after, beforeEach } = require('node:test');
 const assert = require('node:assert/strict');
 const db = require('../src/middleware/db');
-const { createApp } = require('../src/app');
+const { migrate } = require('../src/schema');
+const app = require('../src/app');
 
 let server;
 let base;
@@ -41,8 +45,8 @@ const SLOTS = [
 ];
 
 before(async () => {
-  await db.init();
-  server = createApp().listen(0);
+  await migrate(db.pool);
+  server = app.listen(0);
   await new Promise((r) => server.once('listening', r));
   base = `http://127.0.0.1:${server.address().port}`;
 });
