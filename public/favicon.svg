@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <g fill="#D6457A">
+    <!-- four points -->
+    <path d="M32 2 L37 20 L27 20 Z"/>
+    <path d="M32 62 L27 44 L37 44 Z"/>
+    <path d="M2 32 L20 27 L20 37 Z"/>
+    <path d="M62 32 L44 37 L44 27 Z"/>
+    <!-- centre ring -->
+    <circle cx="32" cy="32" r="14"/>
+  </g>
+  <circle cx="32" cy="32" r="7" fill="#FFFFFF"/>
+</svg>

@@ -1,0 +1,1967 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book a visit · Bloom Clinic</title>
+    <meta name="description" content="Book an appointment at Bloom Clinic in a few clicks.">
+    <meta name="color-scheme" content="light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        :root {
+            --bg: #FAF7F8;
+            --card: #FFFFFF;
+            --line: #EEE7EA;
+            --line-strong: #DDD3D8;
+            --pink: #F8C8DC;
+            --pink-hover: #F4B8D1;
+            --pink-soft: #FDECF3;
+            --pink-deep: #C2577F;
+            --ink: #2B2B2B;
+            --muted: #6B6468;
+            --faint: #C4BBBF;
+            --danger: #8E2A2A;
+            --danger-bg: #FDF0F0;
+            --danger-line: #F2CFCF;
+            --shadow: 0 40px 90px -40px rgba(43, 43, 43, .22), 0 12px 30px -18px rgba(43, 43, 43, .10);
+            --font: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--font);
+            font-size: 14px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button,
+        input {
+            font: inherit;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        svg {
+            flex: none;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        :focus {
+            outline: none;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--pink-deep);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip {
+            position: absolute;
+            left: 16px;
+            top: -48px;
+            z-index: 10;
+            background: var(--ink);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 999px;
+            text-decoration: none;
+        }
+
+        .skip:focus {
+            top: 12px;
+        }
+
+        /* ---------- Nav ---------- */
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 22px 32px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand {
+            justify-self: start;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 22px;
+            height: 22px;
+            color: var(--pink-deep);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 13px;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li+li::before {
+            content: "•";
+            color: var(--faint);
+            margin: 0 14px;
+            font-size: 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 4px 2px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--pink-deep);
+        }
+
+        .pill {
+            justify-self: end;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--pink);
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 6px 6px 18px;
+            border-radius: 999px;
+            transition: background-color .15s ease;
+        }
+
+        .pill:hover {
+            background: var(--pink-hover);
+        }
+
+        .pill-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #fff;
+            display: inline-grid;
+            place-items: center;
+        }
+
+        /* ---------- Hero ---------- */
+        main {
+            padding: 0 16px;
+        }
+
+        .hero {
+            text-align: center;
+            margin: 56px auto 44px;
+            max-width: 760px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6.4vw, 62px);
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            line-height: 1.04;
+            margin: 0 0 18px;
+        }
+
+        .hero p {
+            margin: 0 auto;
+            max-width: 440px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* ---------- Card ---------- */
+        .card {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            scroll-margin-top: 24px;
+        }
+
+        /* Stepper */
+        .steps {
+            list-style: none;
+            margin: 0;
+            padding: 0 12px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .step {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 22px 12px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .step::after {
+            content: "";
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: -1px;
+            height: 2px;
+            background: transparent;
+            border-radius: 2px;
+            transition: background-color .2s ease;
+        }
+
+        .step-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid var(--line-strong);
+            display: inline-grid;
+            place-items: center;
+            font-size: 11px;
+            font-weight: 500;
+            background: #fff;
+            transition: background-color .2s ease, border-color .2s ease;
+        }
+
+        .step-dot svg {
+            display: none;
+        }
+
+        .step.is-active {
+            color: var(--ink);
+        }
+
+        .step.is-active::after {
+            background: var(--pink-deep);
+        }
+
+        .step.is-active .step-dot {
+            border-color: var(--pink-deep);
+            color: var(--ink);
+        }
+
+        .step.is-done {
+            color: var(--ink);
+        }
+
+        .step.is-done .step-dot {
+            background: var(--pink);
+            border-color: var(--pink);
+        }
+
+        .step.is-done .step-num {
+            display: none;
+        }
+
+        .step.is-done .step-dot svg {
+            display: block;
+        }
+
+        /* Banner */
+        .banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 24px 48px 0;
+            padding: 12px 12px 12px 14px;
+            border-radius: 12px;
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-line);
+            color: var(--danger);
+            font-size: 13px;
+        }
+
+        .banner[hidden] {
+            display: none;
+        }
+
+        .banner.is-info {
+            background: var(--pink-soft);
+            border-color: var(--pink);
+            color: var(--ink);
+        }
+
+        .banner svg {
+            margin-top: 1px;
+        }
+
+        .banner p {
+            margin: 0;
+            flex: 1;
+        }
+
+        .banner-close {
+            border: 0;
+            background: transparent;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: inline-grid;
+            place-items: center;
+            color: inherit;
+            margin: -2px -2px 0 0;
+        }
+
+        .banner-close:hover {
+            background: rgba(43, 43, 43, .06);
+        }
+
+        .panel[hidden] {
+            display: none;
+        }
+
+        .panel-body {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 56px;
+            padding: 40px 48px 36px;
+        }
+
+        .col-title {
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin: 0 0 20px;
+        }
+
+        .col-title.center {
+            text-align: center;
+        }
+
+        .sub-title {
+            font-size: 13px;
+            font-weight: 500;
+            margin: 0;
+            letter-spacing: -0.005em;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .sub-title .muted {
+            font-weight: 400;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .small {
+            font-size: 12px;
+        }
+
+        /* Calendar */
+        .cal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .cal-month {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            background: transparent;
+            display: inline-grid;
+            place-items: center;
+            transition: background-color .15s ease;
+        }
+
+        .icon-btn:hover:not(:disabled) {
+            background: var(--pink-soft);
+        }
+
+        .icon-btn:disabled {
+            color: var(--faint);
+            cursor: default;
+        }
+
+        .cal-dow,
+        .cal-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .cal-dow {
+            margin-bottom: 8px;
+        }
+
+        .cal-dow span {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .cal-days {
+            row-gap: 6px;
+        }
+
+        .cal-days.is-loading {
+            opacity: .5;
+        }
+
+        .day {
+            justify-self: center;
+            width: 100%;
+            max-width: 42px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            background: transparent;
+            font-size: 13px;
+            position: relative;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            transition: background-color .15s ease;
+        }
+
+        .day:hover:not(:disabled):not([aria-pressed="true"]) {
+            background: var(--pink-soft);
+        }
+
+        .day:disabled {
+            color: var(--faint);
+            cursor: default;
+        }
+
+        .day[aria-pressed="true"] {
+            background: var(--pink);
+            font-weight: 600;
+        }
+
+        .day.is-today::after {
+            content: "";
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            margin-left: -2px;
+            border-radius: 50%;
+            background: var(--pink-deep);
+        }
+
+        .day.is-today:disabled::after {
+            background: var(--faint);
+        }
+
+        /* Summary */
+        .summary {
+            margin-top: 28px;
+            background: var(--pink);
+            border-radius: 14px;
+            padding: 18px 18px 16px;
+        }
+
+        .summary-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .summary-title {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .summary-sub {
+            margin: 2px 0 0;
+            font-size: 12px;
+        }
+
+        .summary-body {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: rgba(255, 255, 255, .6);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 13px;
+            min-height: 48px;
+        }
+
+        .summary-body svg {
+            margin-top: 2px;
+        }
+
+        .summary-body p {
+            margin: 0;
+        }
+
+        .summary-body strong {
+            font-weight: 600;
+        }
+
+        /* Times */
+        .times {
+            border: 0;
+            margin: 14px 0 0;
+            padding: 0;
+            min-width: 0;
+        }
+
+        .times-list {
+            display: grid;
+            gap: 4px;
+            max-height: 324px;
+            overflow-y: auto;
+            padding: 4px;
+            margin: -4px;
+        }
+
+        .time-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 11px 12px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background-color .15s ease, border-color .15s ease;
+        }
+
+        .time-row:hover {
+            background: var(--pink-soft);
+        }
+
+        .time-row:has(input:checked) {
+            background: var(--pink-soft);
+            border-color: var(--pink);
+        }
+
+        .time-row:has(input:focus-visible) {
+            outline: 2px solid var(--pink-deep);
+            outline-offset: 1px;
+        }
+
+        .time-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .time-main svg {
+            color: var(--pink-deep);
+        }
+
+        .time-text {
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .time-sub {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .radio {
+            appearance: none;
+            -webkit-appearance: none;
+            margin: 0;
+            flex: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid #8F878B;
+            background: #fff;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+        }
+
+        .radio::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--pink-deep);
+            transform: scale(0);
+            transition: transform .12s ease;
+        }
+
+        .radio:checked {
+            border-color: var(--pink-deep);
+        }
+
+        .radio:checked::before {
+            transform: scale(1);
+        }
+
+        .radio:focus-visible {
+            outline: none;
+        }
+
+        /* ring is drawn on the whole row */
+
+        .empty {
+            text-align: center;
+            padding: 28px 16px;
+            border: 1px dashed var(--line-strong);
+            border-radius: 12px;
+        }
+
+        .empty svg {
+            color: var(--pink-deep);
+        }
+
+        .empty-title {
+            margin: 10px 0 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .empty p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .empty .btn {
+            margin-top: 14px;
+        }
+
+        .loading-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* Providers */
+        .providers-block {
+            margin-top: 32px;
+        }
+
+        .providers {
+            display: grid;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .provider {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: 0;
+            border-left: 2px solid var(--pink-deep);
+            border-radius: 0 10px 10px 0;
+            padding: 9px 14px;
+            transition: background-color .15s ease;
+        }
+
+        .provider:hover {
+            background: var(--pink-soft);
+        }
+
+        .provider[aria-pressed="true"] {
+            background: var(--pink-soft);
+        }
+
+        .provider-name {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .provider-name svg {
+            color: var(--pink-deep);
+            visibility: hidden;
+        }
+
+        .provider[aria-pressed="true"] .provider-name svg {
+            visibility: visible;
+        }
+
+        .provider-meta {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* Actions */
+        .panel-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--line);
+            padding: 18px 48px;
+        }
+
+        .panel-foot .muted {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 44px;
+            padding: 0 22px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+        }
+
+        .btn-primary {
+            background: var(--pink);
+            color: var(--ink);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--pink-hover);
+        }
+
+        .btn-ghost {
+            background: #fff;
+            border-color: var(--line-strong);
+        }
+
+        .btn-ghost:hover:not(:disabled) {
+            background: var(--pink-soft);
+            border-color: var(--pink);
+        }
+
+        .btn:disabled {
+            background: #F4EEF1;
+            color: #8A8286;
+            border-color: transparent;
+            cursor: not-allowed;
+        }
+
+        .btn-sm {
+            height: 36px;
+            padding: 0 16px;
+            font-size: 13px;
+        }
+
+        .btn[aria-busy="true"] {
+            cursor: progress;
+        }
+
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            border-right-color: transparent;
+            animation: spin .7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Form */
+        .form-intro {
+            margin: -12px 0 24px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .field input {
+            display: block;
+            width: 100%;
+            height: 46px;
+            padding: 0 14px;
+            font-size: 15px;
+            background: #fff;
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            transition: border-color .15s ease, box-shadow .15s ease;
+        }
+
+        .field input:hover {
+            border-color: #CBBFC5;
+        }
+
+        .field input:focus-visible {
+            outline: 2px solid var(--pink-deep);
+            outline-offset: 1px;
+            border-color: var(--pink-deep);
+        }
+
+        .field input[aria-invalid="true"] {
+            border-color: var(--danger);
+        }
+
+        .field-err {
+            margin: 6px 0 0;
+            font-size: 12px;
+            color: var(--danger);
+            min-height: 0;
+        }
+
+        .field-err:empty {
+            display: none;
+        }
+
+        .details-aside .summary {
+            margin-top: 0;
+        }
+
+        .details-aside .note {
+            margin: 14px 2px 0;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* Confirmation */
+        .done {
+            padding: 48px 48px 44px;
+            text-align: center;
+        }
+
+        .done-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--pink);
+            display: inline-grid;
+            place-items: center;
+            margin-bottom: 18px;
+        }
+
+        .done h3 {
+            font-size: 30px;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+            margin: 0 0 8px;
+            line-height: 1.1;
+        }
+
+        .done>p {
+            margin: 0 auto 28px;
+            max-width: 420px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .receipt {
+            max-width: 540px;
+            margin: 0 auto 28px;
+            text-align: left;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .receipt div {
+            display: grid;
+            grid-template-columns: 130px minmax(0, 1fr);
+            gap: 12px;
+            padding: 12px 18px;
+        }
+
+        .receipt div+div {
+            border-top: 1px solid var(--line);
+        }
+
+        .receipt dt {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .receipt dd {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 500;
+            overflow-wrap: anywhere;
+        }
+
+        .receipt .mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--pink-soft);
+            border: 1px solid var(--pink);
+            padding: 1px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            text-transform: capitalize;
+        }
+
+        .status-pill::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--pink-deep);
+        }
+
+        /* ---------- Footer ---------- */
+        .footer {
+            max-width: 1000px;
+            margin: 64px auto 0;
+            padding: 0 16px 56px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            text-align: center;
+        }
+
+        .footer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .footer-item svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .footer-item a {
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .footer-item a:hover {
+            color: var(--pink-deep);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .footer-label {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 2px;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+            padding: 0 16px 32px;
+            margin: 0;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .panel-body {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 36px;
+                padding: 28px 24px;
+            }
+
+            .panel-foot {
+                padding: 16px 24px;
+            }
+
+            .banner {
+                margin: 20px 24px 0;
+            }
+
+            .done {
+                padding: 36px 24px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .nav {
+                grid-template-columns: 1fr auto;
+                padding: 18px 16px;
+            }
+
+            .nav nav {
+                display: none;
+            }
+
+            .hero {
+                margin: 36px auto 32px;
+            }
+
+            .footer {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 28px;
+                margin-top: 48px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .steps {
+                padding: 0 4px;
+            }
+
+            .step {
+                flex-direction: column;
+                gap: 6px;
+                padding: 16px 4px 14px;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            .step::after {
+                left: 4px;
+                right: 4px;
+            }
+
+            .panel-body {
+                padding: 24px 16px;
+            }
+
+            .panel-foot {
+                padding: 14px 16px;
+            }
+
+            .panel-foot .btn-row {
+                width: 100%;
+            }
+
+            .panel-foot .btn {
+                flex: 1;
+            }
+
+            .banner {
+                margin: 16px 16px 0;
+            }
+
+            .done {
+                padding: 32px 16px;
+            }
+
+            .receipt div {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 2px;
+                padding: 10px 14px;
+            }
+
+            .cal-days {
+                row-gap: 4px;
+            }
+
+            .pill {
+                font-size: 12px;
+                padding-left: 14px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .brand {
+                font-size: 16px;
+            }
+
+            .pill-label-long {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+                animation-duration: 1.5s !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#booking">Skip to booking</a>
+
+    <header class="nav">
+        <a class="brand" href="#top" id="top">
+            <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                aria-hidden="true">
+                <circle cx="12" cy="12" r="2.5" />
+                <path
+                    d="M12 9.5C12 6 10 4 12 2c2 2 0 4 0 7.5M14.5 12c3.5 0 5.5-2 7.5 0-2 2-4 0-7.5 0M12 14.5c0 3.5 2 5.5 0 7.5-2-2 0-4 0-7.5M9.5 12C6 12 4 14 2 12c2-2 4 0 7.5 0" />
+            </svg>
+            Bloom Clinic
+        </a>
+        <nav aria-label="Main">
+            <ul class="nav-links">
+                <li><a href="#top">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <a class="pill" href="#booking" id="nav-book">
+            <span>Book <span class="pill-label-long">an appointment</span></span>
+            <span class="pill-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round">
+                    <path d="M3.5 8.5l5-5M4.5 3.5h4v4" />
+                </svg>
+            </span>
+        </a>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Book your visit<br>in a few clicks</h1>
+        </section>
+
+        <section class="card" id="booking" aria-labelledby="booking-heading">
+            <h2 id="booking-heading" class="sr-only">Book an appointment</h2>
+
+            <ol class="steps" id="steps">
+                <li class="step" data-step="1">
+                    <span class="step-dot" aria-hidden="true"><span class="step-num">01</span><svg width="14"
+                            height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7.5l2.5 2.5L11 4.5" />
+                        </svg></span>
+                    <span class="step-label">Choose a time</span>
+                </li>
+                <li class="step" data-step="2">
+                    <span class="step-dot" aria-hidden="true"><span class="step-num">02</span><svg width="14"
+                            height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7.5l2.5 2.5L11 4.5" />
+                        </svg></span>
+                    <span class="step-label">Your details</span>
+                </li>
+                <li class="step" data-step="3">
+                    <span class="step-dot" aria-hidden="true"><span class="step-num">03</span><svg width="14"
+                            height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7.5l2.5 2.5L11 4.5" />
+                        </svg></span>
+                    <span class="step-label">Confirmation</span>
+                </li>
+            </ol>
+
+            <div class="banner" id="banner" role="alert" hidden>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+                    aria-hidden="true">
+                    <circle cx="8" cy="8" r="6.5" />
+                    <path d="M8 4.75v3.75M8 10.75v.5" stroke-linecap="round" />
+                </svg>
+                <p id="banner-text"></p>
+                <button type="button" class="banner-close" id="banner-close" aria-label="Dismiss message">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" aria-hidden="true">
+                        <path d="M3 3l6 6M9 3l-6 6" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- STEP 1 -->
+            <section class="panel" id="step-1" aria-labelledby="cal-title">
+                <div class="panel-body">
+                    <div>
+                        <h3 class="col-title center" id="cal-title" tabindex="-1">Select a date &amp; time</h3>
+                        <div class="cal-head">
+                            <button type="button" class="icon-btn" id="prev-month" aria-label="Previous month">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                    aria-hidden="true">
+                                    <path d="M10 3.5L5.5 8l4.5 4.5" />
+                                </svg>
+                            </button>
+                            <p class="cal-month" id="cal-month" aria-live="polite"></p>
+                            <button type="button" class="icon-btn" id="next-month" aria-label="Next month">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                    aria-hidden="true">
+                                    <path d="M6 3.5L10.5 8 6 12.5" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="cal-dow" aria-hidden="true">
+                            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                        </div>
+                        <div class="cal-days" id="cal-days"></div>
+
+                        <div class="summary" aria-live="polite">
+                            <div class="summary-head">
+                                <div>
+                                    <p class="summary-title">Your selection</p>
+                                    <p class="summary-sub">Nothing is booked until you confirm.</p>
+                                </div>
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor"
+                                    stroke-width="1.4" aria-hidden="true">
+                                    <rect x="2.5" y="3.5" width="13" height="12" rx="2" />
+                                    <path d="M2.5 7.5h13M6 2v3M12 2v3" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <div class="summary-body" data-summary></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="sub-title"><span>Available times</span><span class="muted small"
+                                id="times-day"></span></h3>
+                        <fieldset class="times">
+                            <legend class="sr-only" id="times-legend">Available times</legend>
+                            <div class="times-list" id="times-list"></div>
+                        </fieldset>
+
+                        <div class="providers-block" id="providers-block">
+                            <h3 class="sub-title"><span>Providers</span></h3>
+                            <div class="providers" id="providers" role="group" aria-label="Filter times by provider">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-foot">
+                    <p class="muted" id="tz-note"></p>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-primary" id="continue" disabled>
+                            Continue
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 2 -->
+            <section class="panel" id="step-2" aria-labelledby="details-title" hidden>
+                <form id="details-form" novalidate>
+                    <div class="panel-body">
+                        <div>
+                            <h3 class="col-title" id="details-title" tabindex="-1">Your details</h3>
+                            <p class="form-intro">We'll use these to confirm your appointment.</p>
+                            <div class="field">
+                                <label for="name">Full name</label>
+                                <input id="name" name="name" autocomplete="name" aria-describedby="name-err" required>
+                                <p class="field-err" id="name-err"></p>
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" inputmode="email" autocomplete="email"
+                                    aria-describedby="email-err" required>
+                                <p class="field-err" id="email-err"></p>
+                            </div>
+                        </div>
+                        <div class="details-aside">
+                            <div class="summary" aria-live="polite">
+                                <div class="summary-head">
+                                    <div>
+                                        <p class="summary-title">Your selection</p>
+                                        <p class="summary-sub">Go back to pick a different time.</p>
+                                    </div>
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor"
+                                        stroke-width="1.4" aria-hidden="true">
+                                        <rect x="2.5" y="3.5" width="13" height="12" rx="2" />
+                                        <path d="M2.5 7.5h13M6 2v3M12 2v3" stroke-linecap="round" />
+                                    </svg>
+                                </div>
+                                <div class="summary-body" data-summary></div>
+                            </div>
+                            <p class="note">Plans change? Contact us and we'll cancel or move your booking.</p>
+                        </div>
+                    </div>
+                    <div class="panel-foot">
+                        <div class="btn-row">
+                            <button type="button" class="btn btn-ghost" id="back">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                    aria-hidden="true">
+                                    <path d="M11.5 7h-9M6 3.5L2.5 7 6 10.5" />
+                                </svg>
+                                Back
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="confirm">Confirm booking</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- STEP 3 -->
+            <section class="panel" id="step-3" aria-labelledby="done-title" hidden>
+                <div class="done">
+                    <div class="done-icon" aria-hidden="true">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12.5l4.5 4.5L19 7.5" />
+                        </svg>
+                    </div>
+                    <h3 id="done-title" tabindex="-1">You're booked</h3>
+                    <p>Your appointment is confirmed. Keep your booking ID handy in case you need to contact us.</p>
+                    <dl class="receipt" id="receipt"></dl>
+                    <button type="button" class="btn btn-primary" id="again">Book another</button>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="footer-item">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"
+                aria-hidden="true">
+                <rect x="3.5" y="6.5" width="21" height="15" rx="1.5" />
+                <path d="M4 7.5l10 7.5 10-7.5" />
+            </svg>
+            <div><span class="footer-label">Email</span><a
+                    href="mailto:hello@bloomclinic.example">hello@bloomclinic.example</a></div>
+        </div>
+        <div class="footer-item">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"
+                aria-hidden="true">
+                <path
+                    d="M7 3.5h4l2 5-2.5 1.5a11 11 0 0 0 7.5 7.5L19.5 15l5 2v4a2 2 0 0 1-2 2A19 19 0 0 1 5 5.5a2 2 0 0 1 2-2z" />
+            </svg>
+            <div><span class="footer-label">Phone</span><a href="tel:+15550100199">+234 xxx-xxxx-xxx</a></div>
+        </div>
+        <div class="footer-item">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                aria-hidden="true">
+                <circle cx="14" cy="14" r="10.5" />
+                <path d="M11 11a3 3 0 1 1 4.2 2.75c-.75.35-1.2 1.05-1.2 1.85V16.5M14 20v.25" />
+            </svg>
+            <div><span class="footer-label">Help</span><a
+                    href="mailto:help@bloomclinic.example">help@bloomclinic.example</a></div>
+        </div>
+    </footer>
+    <p class="copyright">© Bloom Clinic. </p>
+
+    <script>
+        (() => {
+            'use strict';
+
+            // All API calls go through the server-side proxy, which adds the API key. No key lives in this page.
+            const API = '/proxy';
+            const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const $ = (id) => document.getElementById(id);
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+            const fmt = {
+                month: new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' }),
+                dayLong: new Intl.DateTimeFormat(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }),
+                dayShort: new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric' }),
+                time: new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }),
+                tzShort: new Intl.DateTimeFormat(undefined, { timeZoneName: 'short' }),
+            };
+
+            const ICON_CLOCK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/></svg>';
+            const ICON_CHECK = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5l2.5 2.5L11 4.5"/></svg>';
+            const ICON_CAL = '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="4.5" y="6" width="19" height="17" rx="2.5"/><path d="M4.5 11.5h19M10 3.5v4M18 3.5v4" stroke-linecap="round"/></svg>';
+
+            const state = {
+                all: [],          // open slots for every provider (drives the provider list)
+                slots: [],        // open slots for the current provider filter
+                days: new Map(),  // 'YYYY-MM-DD' (local) -> slots that day
+                provider: null,   // null = all providers
+                month: null,      // { y, m } shown in the calendar
+                day: null,        // selected 'YYYY-MM-DD'
+                slotId: null,     // selected slot id
+                step: 1,
+                loading: false,
+                loadError: null,
+                submitting: false,
+                attempt: null,    // { sig, key } — Idempotency-Key reused while the submission is unchanged
+                cooldownTimer: null,
+            };
+
+            // ---------- helpers ----------
+            const pad = (n) => String(n).padStart(2, '0');
+            const keyOf = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+            const dateOfKey = (k) => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
+            const monthIndex = ({ y, m }) => y * 12 + m;
+            const monthOfDate = (d) => ({ y: d.getFullYear(), m: d.getMonth() });
+            const currentSlot = () => state.slots.find((s) => s.id === state.slotId) || state.all.find((s) => s.id === state.slotId) || null;
+
+            function el(tag, props = {}, ...children) {
+                const node = document.createElement(tag);
+                for (const [k, v] of Object.entries(props)) {
+                    if (k === 'class') node.className = v;
+                    else if (k === 'html') node.innerHTML = v; // only ever used with the static icon strings above
+                    else if (k === 'text') node.textContent = v;
+                    else if (k.startsWith('on')) node.addEventListener(k.slice(2), v);
+                    else if (v !== false && v != null) node.setAttribute(k, v === true ? '' : v);
+                }
+                for (const c of children) if (c != null) node.append(c);
+                return node;
+            }
+
+            function timeRange(slot) {
+                return `${fmt.time.format(new Date(slot.start))} – ${fmt.time.format(new Date(slot.end))}`;
+            }
+            function durationMins(slot) {
+                return Math.round((Date.parse(slot.end) - Date.parse(slot.start)) / 60000);
+            }
+            function tzLabel() {
+                const part = fmt.tzShort.formatToParts(new Date()).find((p) => p.type === 'timeZoneName');
+                return part ? part.value : tz;
+            }
+
+            function newIdempotencyKey() {
+                if (window.crypto && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+                const b = crypto.getRandomValues(new Uint8Array(16));
+                b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+                const h = Array.from(b, (x) => x.toString(16).padStart(2, '0')).join('');
+                return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+            }
+
+            async function api(path, options = {}) {
+                const res = await fetch(API + path, { ...options, headers: { Accept: 'application/json', ...(options.headers || {}) } });
+                let data = null;
+                try { data = await res.json(); } catch (_) { /* non-JSON body */ }
+                return { status: res.status, ok: res.ok, data, headers: res.headers };
+            }
+            const apiError = (r) => (r.data && typeof r.data.error === 'string' ? r.data.error : `Request failed (${r.status})`);
+
+            function setBusy(btn, busy, label) {
+                if (busy) {
+                    btn.dataset.label = btn.innerHTML;
+                    btn.setAttribute('aria-busy', 'true');
+                    btn.disabled = true;
+                    btn.replaceChildren(el('span', { class: 'spinner', 'aria-hidden': 'true' }), document.createTextNode(label));
+                } else if (btn.dataset.label != null) {
+                    btn.innerHTML = btn.dataset.label;
+                    delete btn.dataset.label;
+                    btn.removeAttribute('aria-busy');
+                    btn.disabled = false;
+                }
+            }
+
+            // ---------- banner ----------
+            function showBanner(message, { info = false } = {}) {
+                stopCooldown();
+                $('banner').classList.toggle('is-info', info);
+                $('banner-text').textContent = message;
+                $('banner').hidden = false;
+            }
+            function hideBanner() {
+                stopCooldown();
+                $('banner').hidden = true;
+                $('banner-text').textContent = '';
+            }
+            function stopCooldown() {
+                if (state.cooldownTimer) {
+                    clearInterval(state.cooldownTimer);
+                    state.cooldownTimer = null;
+                    $('confirm').disabled = state.submitting;
+                }
+            }
+            function startCooldown(seconds) {
+                showBanner('');
+                let left = Math.max(1, seconds);
+                const count = el('span', { 'aria-live': 'off' });
+                const unit = el('span');
+                const paint = () => { count.textContent = String(left); unit.textContent = left === 1 ? ' second.' : ' seconds.'; };
+                paint();
+                $('banner-text').replaceChildren(document.createTextNode('Too many attempts, try again in '), count, unit);
+                $('confirm').disabled = true;
+                state.cooldownTimer = setInterval(() => {
+                    left -= 1;
+                    if (left <= 0) { hideBanner(); $('confirm').focus(); return; }
+                    paint();
+                }, 1000);
+            }
+            $('banner-close').addEventListener('click', hideBanner);
+
+            // ---------- data ----------
+            function openSlots(list) {
+                const now = Date.now();
+                return (Array.isArray(list) ? list : [])
+                    .filter((s) => s.available === true && Date.parse(s.start) > now)
+                    .sort((a, b) => Date.parse(a.start) - Date.parse(b.start) || String(a.id).localeCompare(String(b.id)));
+            }
+            function groupByDay(list) {
+                const map = new Map();
+                for (const s of list) {
+                    const k = keyOf(new Date(s.start));
+                    if (!map.has(k)) map.set(k, []);
+                    map.get(k).push(s);
+                }
+                return map;
+            }
+
+            let loadToken = 0;
+            async function loadSlots() {
+                const token = ++loadToken;
+                state.loading = true;
+                state.loadError = null;
+                renderStep1();
+                try {
+                    const [all, filtered] = await Promise.all([
+                        api('/slots'),
+                        state.provider ? api(`/slots?provider=${encodeURIComponent(state.provider)}`) : null,
+                    ]);
+                    if (token !== loadToken) return;
+                    if (!all.ok) throw new Error(apiError(all));
+                    if (filtered && !filtered.ok) throw new Error(apiError(filtered));
+
+                    state.all = openSlots(all.data && all.data.slots);
+                    state.slots = filtered ? openSlots(filtered.data && filtered.data.slots) : state.all;
+                    state.days = groupByDay(state.slots);
+                    if (state.slotId && !state.slots.some((s) => s.id === state.slotId)) state.slotId = null;
+
+                    if (!state.day || !state.days.has(state.day)) {
+                        const firstDay = [...state.days.keys()].sort()[0] || null;
+                        state.day = firstDay;
+                        state.month = monthOfDate(firstDay ? dateOfKey(firstDay) : new Date());
+                    }
+                } catch (err) {
+                    if (token !== loadToken) return;
+                    state.loadError = err instanceof TypeError
+                        ? "We couldn't reach the clinic. Check your connection and try again."
+                        : `We couldn't load available times: ${err.message}`;
+                } finally {
+                    if (token === loadToken) {
+                        state.loading = false;
+                        renderStep1();
+                    }
+                }
+            }
+
+            // ---------- rendering ----------
+            function renderSteps() {
+                for (const li of $('steps').children) {
+                    const n = Number(li.dataset.step);
+                    li.classList.toggle('is-active', n === state.step);
+                    li.classList.toggle('is-done', n < state.step);
+                    if (n === state.step) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+                    const label = li.querySelector('.step-label').textContent;
+                    li.setAttribute('aria-label', `Step ${n} of 3: ${label}${n < state.step ? ', completed' : ''}`);
+                }
+            }
+
+            function renderCalendar() {
+                if (!state.month) state.month = monthOfDate(new Date());
+                const { y, m } = state.month;
+                $('cal-month').textContent = fmt.month.format(new Date(y, m, 1));
+
+                const grid = $('cal-days');
+                const focusedKey = grid.contains(document.activeElement) ? document.activeElement.dataset.key : null;
+                grid.classList.toggle('is-loading', state.loading);
+                grid.setAttribute('aria-busy', state.loading ? 'true' : 'false');
+                grid.replaceChildren();
+
+                const lead = (new Date(y, m, 1).getDay() + 6) % 7; // Monday-first
+                for (let i = 0; i < lead; i++) grid.append(el('span', { 'aria-hidden': 'true' }));
+
+                const todayKey = keyOf(new Date());
+                const daysInMonth = new Date(y, m + 1, 0).getDate();
+                for (let d = 1; d <= daysInMonth; d++) {
+                    const date = new Date(y, m, d);
+                    const k = keyOf(date);
+                    const count = (state.days.get(k) || []).length;
+                    const btn = el('button', {
+                        type: 'button',
+                        class: `day${k === todayKey ? ' is-today' : ''}`,
+                        'data-key': k,
+                        'aria-pressed': k === state.day ? 'true' : 'false',
+                        'aria-label': `${fmt.dayLong.format(date)}, ${count ? `${count} time${count === 1 ? '' : 's'} available` : 'no times available'}`,
+                        'aria-current': k === todayKey ? 'date' : false,
+                        disabled: !count,
+                        text: String(d),
+                        onclick: () => selectDay(k),
+                    });
+                    grid.append(btn);
+                }
+                if (focusedKey) {
+                    const again = grid.querySelector(`[data-key="${focusedKey}"]`);
+                    if (again && !again.disabled) again.focus();
+                }
+
+                const now = monthOfDate(new Date());
+                const lastKey = [...state.days.keys()].sort().pop();
+                const max = lastKey ? Math.max(monthIndex(monthOfDate(dateOfKey(lastKey))), monthIndex(now)) : monthIndex(now);
+                $('prev-month').disabled = monthIndex(state.month) <= monthIndex(now);
+                $('next-month').disabled = monthIndex(state.month) >= max;
+            }
+
+            function emptyState(title, text, action) {
+                return el('div', { class: 'empty' },
+                    el('span', { html: ICON_CAL }),
+                    el('p', { class: 'empty-title', text: title }),
+                    el('p', { text }),
+                    action || null);
+            }
+
+            function renderTimes() {
+                const list = $('times-list');
+                const focusedId = list.contains(document.activeElement) ? document.activeElement.value : null;
+                list.replaceChildren();
+                $('times-day').textContent = state.day && !state.loading ? fmt.dayShort.format(dateOfKey(state.day)) : '';
+                $('times-legend').textContent = state.day ? `Available times on ${fmt.dayLong.format(dateOfKey(state.day))}` : 'Available times';
+
+                if (state.loading && !state.slots.length) {
+                    list.append(el('div', { class: 'loading-line', role: 'status' }, el('span', { class: 'spinner', 'aria-hidden': 'true' }), 'Loading available times…'));
+                    return;
+                }
+                if (state.loadError) {
+                    list.append(emptyState('Times unavailable', state.loadError,
+                        el('button', { type: 'button', class: 'btn btn-ghost btn-sm', text: 'Try again', onclick: loadSlots })));
+                    return;
+                }
+                if (!state.slots.length) {
+                    if (state.provider) {
+                        list.append(emptyState(`No open times with ${state.provider}`, 'Try another provider, or see everyone.',
+                            el('button', { type: 'button', class: 'btn btn-ghost btn-sm', text: 'Show all providers', onclick: () => selectProvider(null) })));
+                    } else {
+                        list.append(emptyState('No open times right now', 'New appointments are added regularly. Please check back soon.'));
+                    }
+                    return;
+                }
+                const daySlots = state.days.get(state.day) || [];
+                if (!daySlots.length) {
+                    list.append(emptyState('Pick a date', 'Choose a highlighted date to see its times.'));
+                    return;
+                }
+                for (const s of daySlots) {
+                    const input = el('input', { type: 'radio', name: 'slot', class: 'radio', value: s.id, checked: s.id === state.slotId });
+                    input.addEventListener('change', () => selectSlot(s.id));
+                    list.append(el('label', { class: 'time-row' },
+                        el('span', { class: 'time-main' },
+                            el('span', { html: ICON_CLOCK }),
+                            el('span', {},
+                                el('span', { class: 'time-text', text: timeRange(s) }),
+                                el('span', { class: 'time-sub', text: `${s.provider} · ${durationMins(s)} min` }))),
+                        input));
+                }
+                if (focusedId) {
+                    const again = list.querySelector(`input[value="${CSS.escape(focusedId)}"]`);
+                    if (again) again.focus();
+                }
+            }
+
+            function renderProviders() {
+                const box = $('providers');
+                const focused = box.contains(document.activeElement) ? document.activeElement.dataset.provider : null;
+                const counts = new Map();
+                for (const s of state.all) counts.set(s.provider, (counts.get(s.provider) || 0) + 1);
+                if (state.provider && !counts.has(state.provider)) counts.set(state.provider, 0);
+
+                $('providers-block').hidden = counts.size === 0;
+                box.replaceChildren();
+                const items = [[null, 'All providers', state.all.length],
+                ...[...counts].sort((a, b) => a[0].localeCompare(b[0])).map(([p, n]) => [p, p, n])];
+                for (const [value, label, n] of items) {
+                    box.append(el('button', {
+                        type: 'button',
+                        class: 'provider',
+                        'data-provider': value === null ? '' : value,
+                        'aria-pressed': state.provider === value ? 'true' : 'false',
+                        onclick: () => selectProvider(value),
+                    },
+                        el('span', { class: 'provider-name' }, el('span', { text: label }), el('span', { html: ICON_CHECK })),
+                        el('span', { class: 'provider-meta', text: `${n} open time${n === 1 ? '' : 's'}` })));
+                }
+                if (focused != null) {
+                    const again = [...box.children].find((b) => b.dataset.provider === focused);
+                    if (again) again.focus();
+                }
+            }
+
+            function renderSummary() {
+                const slot = currentSlot();
+                for (const box of document.querySelectorAll('[data-summary]')) {
+                    box.replaceChildren();
+                    box.append(el('span', { html: ICON_CLOCK }));
+                    if (!slot) {
+                        box.append(el('p', { text: 'No time selected' }));
+                        continue;
+                    }
+                    box.append(el('p', {},
+                        el('strong', { text: fmt.dayLong.format(new Date(slot.start)) }), el('br'),
+                        `${timeRange(slot)} (${tzLabel()})`, el('br'),
+                        `with ${slot.provider}`));
+                }
+                $('continue').disabled = !slot;
+            }
+
+            function renderStep1() {
+                renderCalendar();
+                renderTimes();
+                renderProviders();
+                renderSummary();
+            }
+
+            function goTo(step) {
+                state.step = step;
+                for (const n of [1, 2, 3]) $(`step-${n}`).hidden = n !== step;
+                renderSteps();
+                const card = $('booking');
+                if (card.getBoundingClientRect().top < 0) card.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+            }
+
+            // ---------- actions ----------
+            function selectDay(k) {
+                if (k !== state.day) state.slotId = null;
+                state.day = k;
+                renderCalendar();
+                renderTimes();
+                renderSummary();
+            }
+            function selectSlot(id) {
+                state.slotId = id;
+                renderSummary();
+            }
+            function selectProvider(p) {
+                if (p === state.provider && !state.loadError) return;
+                state.provider = p;
+                loadSlots();
+            }
+            function shiftMonth(delta) {
+                const idx = monthIndex(state.month) + delta;
+                state.month = { y: Math.floor(idx / 12), m: idx % 12 };
+                renderCalendar();
+            }
+
+            $('prev-month').addEventListener('click', () => shiftMonth(-1));
+            $('next-month').addEventListener('click', () => shiftMonth(1));
+
+            $('continue').addEventListener('click', () => {
+                if (!currentSlot()) return;
+                hideBanner();
+                goTo(2);
+                $('name').focus({ preventScroll: true });
+            });
+
+            $('back').addEventListener('click', () => {
+                goTo(1);
+                const checked = document.querySelector('#times-list input:checked');
+                (checked || $('cal-title')).focus({ preventScroll: true });
+            });
+
+            // ---------- step 2: booking ----------
+            function setFieldError(id, message) {
+                $(id).setAttribute('aria-invalid', message ? 'true' : 'false');
+                $(`${id}-err`).textContent = message;
+            }
+            for (const id of ['name', 'email']) $(id).addEventListener('input', () => setFieldError(id, ''));
+
+            function validateForm() {
+                const name = $('name').value.trim();
+                const email = $('email').value.trim();
+                setFieldError('name', name ? '' : 'Please enter your name.');
+                setFieldError('email', !email ? 'Please enter your email.' : EMAIL_RE.test(email) ? '' : 'Please enter a valid email, like name@example.com.');
+                const firstBad = ['name', 'email'].find((id) => $(id).getAttribute('aria-invalid') === 'true');
+                if (firstBad) $(firstBad).focus();
+                return !firstBad ? { name, email } : null;
+            }
+
+            async function backToTimes(message) {
+                state.slotId = null;
+                state.attempt = null;
+                goTo(1);
+                showBanner(message);
+                await loadSlots();
+                $('cal-title').focus({ preventScroll: true });
+            }
+
+            $('details-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (state.submitting || state.cooldownTimer) return;
+                const slot = currentSlot();
+                if (!slot) return backToTimes('Please pick a time first.');
+                const fields = validateForm();
+                if (!fields) return;
+                hideBanner();
+
+                // One Idempotency-Key per booking attempt; a retry of the exact same submission reuses it,
+                // so a lost response can never create a second booking.
+                const body = JSON.stringify({ slot_id: slot.id, name: fields.name, email: fields.email });
+                if (!state.attempt || state.attempt.sig !== body) state.attempt = { sig: body, key: newIdempotencyKey() };
+
+                state.submitting = true;
+                setBusy($('confirm'), true, 'Booking…');
+                $('back').disabled = true;
+                let res;
+                try {
+                    res = await api('/bookings', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Idempotency-Key': state.attempt.key },
+                        body,
+                    });
+                } catch (_) {
+                    res = null;
+                } finally {
+                    state.submitting = false;
+                    setBusy($('confirm'), false);
+                    $('back').disabled = false;
+                }
+
+                if (!res) return showBanner("We couldn't reach the clinic. Check your connection and press Confirm again. You won't be booked twice.");
+                if (res.status === 201) {
+                    state.attempt = null;
+                    showConfirmation(res.data, slot);
+                    return;
+                }
+                const msg = apiError(res);
+                switch (res.status) {
+                    case 409:
+                        return backToTimes('That slot was just taken, pick another.');
+                    case 404:
+                        return backToTimes("That time is no longer available, pick another.");
+                    case 429: {
+                        const secs = parseInt(res.headers.get('Retry-After'), 10);
+                        return startCooldown(Number.isFinite(secs) && secs > 0 ? secs : 60);
+                    }
+                    case 400:
+                        if (/start/i.test(msg)) return backToTimes('That time has already started, pick a later one.');
+                        if (/email/i.test(msg)) { setFieldError('email', msg.charAt(0).toUpperCase() + msg.slice(1) + '.'); $('email').focus(); }
+                        else if (/name/i.test(msg)) { setFieldError('name', msg.charAt(0).toUpperCase() + msg.slice(1) + '.'); $('name').focus(); }
+                        return showBanner(`Please check your details: ${msg}.`);
+                    case 422:
+                        state.attempt = null;
+                        return showBanner('This booking was already submitted with different details. Please press Confirm again.');
+                    default:
+                        return showBanner(res.status >= 500
+                            ? "Something went wrong on our side. Please press Confirm again. You won't be booked twice."
+                            : `Something went wrong: ${msg}`);
+                }
+            });
+
+            // ---------- step 3 ----------
+            function showConfirmation(booking, slot) {
+                const rows = [
+                    ['Booking ID', el('span', { class: 'mono', text: booking.id })],
+                    ['Provider', slot.provider],
+                    ['Date', fmt.dayLong.format(new Date(slot.start))],
+                    ['Time', `${timeRange(slot)} (${tzLabel()})`],
+                    ['Name', booking.name],
+                    ['Email', booking.email],
+                    ['Status', el('span', { class: 'status-pill', text: booking.status })],
+                ];
+                $('receipt').replaceChildren(...rows.map(([k, v]) => el('div', {}, el('dt', { text: k }), el('dd', {}, v))));
+                goTo(3);
+                $('done-title').focus({ preventScroll: true });
+            }
+
+            function startOver() {
+                hideBanner();
+                $('details-form').reset();
+                setFieldError('name', '');
+                setFieldError('email', '');
+                state.slotId = null;
+                state.attempt = null;
+                goTo(1);
+                loadSlots();
+                $('cal-title').focus({ preventScroll: true });
+            }
+            $('again').addEventListener('click', startOver);
+
+            $('nav-book').addEventListener('click', (e) => {
+                e.preventDefault();
+                if (state.step === 3) return startOver();
+                $('booking').scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+                (state.step === 2 ? $('name') : $('cal-title')).focus({ preventScroll: true });
+            });
+
+            // ---------- init ----------
+            renderSteps();
+            loadSlots();
+        })();
+    </script>
+</body>
+
+</html>
