@@ -6,7 +6,7 @@ const WINDOW_MS = 60_000;
 /**
  * Records one POST /bookings attempt for `email` (already trimmed + lower-cased) in a rolling
  * window, or refuses it. The check-and-insert runs atomically inside Postgres
- * (record_booking_attempt in db.js, serialised per email by an advisory lock), so concurrent
+ * (record_booking_attempt in src/schema.js, serialised per email by an advisory lock), so concurrent
  * attempts can't slip past the limit. Refused (429) attempts are not recorded, so a client that
  * keeps retrying still gets in once the window rolls on.
  *

@@ -1004,6 +1004,93 @@
             background: var(--pink-deep);
         }
 
+        /* ---------- Find my booking ---------- */
+        .lookup {
+            max-width: 1000px;
+            margin: 32px auto 0;
+            padding: 32px 48px 36px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            scroll-margin-top: 24px;
+        }
+
+        .lookup h2 {
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin: 0 0 4px;
+        }
+
+        .lookup-intro {
+            margin: 0 0 20px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .lookup-form {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .lookup-form .field {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .lookup-form .btn {
+            margin-top: 25px; /* line up with the input under its label */
+        }
+
+        .lookup-msg {
+            margin: 16px 0 0;
+            font-size: 13px;
+        }
+
+        .lookup-msg:empty {
+            display: none;
+        }
+
+        .lookup-msg.is-error {
+            color: var(--danger);
+        }
+
+        .lookup .receipt {
+            max-width: none;
+            margin: 20px 0 0;
+        }
+
+        .status-pill.is-cancelled {
+            background: #F4EEF1;
+            border-color: var(--line-strong);
+        }
+
+        .status-pill.is-cancelled::before {
+            background: #8F878B;
+        }
+
+        @media (max-width: 860px) {
+            .lookup {
+                padding: 28px 24px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .lookup {
+                padding: 24px 16px;
+            }
+
+            .lookup-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .lookup-form .btn {
+                margin-top: 0;
+            }
+        }
+
         /* ---------- Footer ---------- */
         .footer {
             max-width: 1000px;
@@ -1396,6 +1483,24 @@
                     <button type="button" class="btn btn-primary" id="again">Book another</button>
                 </div>
             </section>
+        </section>
+
+        <!-- FIND MY BOOKING (lookup by booking ID only: email lookup is deliberately not exposed) -->
+        <section class="lookup" id="lookup" aria-labelledby="lookup-title">
+            <h2 id="lookup-title">Find my booking</h2>
+            <p class="lookup-intro">Enter the booking ID from your confirmation to see your appointment.</p>
+            <form class="lookup-form" id="lookup-form" novalidate>
+                <div class="field">
+                    <label for="lookup-id">Booking ID</label>
+                    <input id="lookup-id" name="booking-id" autocomplete="off" spellcheck="false"
+                        placeholder="e.g. 6713bd07-0c77-46ee-b6f3-765664b3e7ee" aria-describedby="lookup-msg">
+                </div>
+                <button type="submit" class="btn btn-primary" id="lookup-btn">Find booking</button>
+            </form>
+            <div aria-live="polite">
+                <p class="lookup-msg" id="lookup-msg"></p>
+                <dl class="receipt" id="lookup-result" hidden></dl>
+            </div>
         </section>
     </main>
 
@@ -1955,6 +2060,62 @@
                 if (state.step === 3) return startOver();
                 $('booking').scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
                 (state.step === 2 ? $('name') : $('cal-title')).focus({ preventScroll: true });
+            });
+
+            // ---------- find my booking (GET /proxy/bookings/{id}) ----------
+            // Lookup is by booking ID only. The proxy does not allow GET /bookings?email=, so
+            // nobody can list other people's bookings from this page.
+            let lookupToken = 0;
+            function lookupMessage(text, isError) {
+                $('lookup-msg').textContent = text;
+                $('lookup-msg').classList.toggle('is-error', !!isError);
+            }
+
+            $('lookup-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const id = $('lookup-id').value.trim();
+                $('lookup-result').hidden = true;
+                $('lookup-result').replaceChildren();
+                if (!id) {
+                    lookupMessage('Please enter your booking ID.', true);
+                    $('lookup-id').focus();
+                    return;
+                }
+                const token = ++lookupToken;
+                lookupMessage('');
+                setBusy($('lookup-btn'), true, 'Finding…');
+                let booking;
+                let slots;
+                try {
+                    // The booking has only slot_id, so fetch the slots too for provider and time.
+                    [booking, slots] = await Promise.all([api(`/bookings/${encodeURIComponent(id)}`), api('/slots')]);
+                } catch (_) {
+                    booking = null;
+                } finally {
+                    setBusy($('lookup-btn'), false);
+                }
+                if (token !== lookupToken) return;
+
+                if (!booking) return lookupMessage("We couldn't reach the clinic. Check your connection and try again.", true);
+                if (booking.status === 404) return lookupMessage('Booking not found. Check the ID and try again.', true);
+                if (!booking.ok) return lookupMessage(`Something went wrong: ${apiError(booking)}`, true);
+
+                const b = booking.data;
+                const slot = slots && slots.ok && slots.data && Array.isArray(slots.data.slots)
+                    ? slots.data.slots.find((s) => s.id === b.slot_id)
+                    : null;
+                const rows = [
+                    ['Booking ID', el('span', { class: 'mono', text: b.id })],
+                    ['Provider', slot ? slot.provider : 'Unavailable'],
+                    ['Date', slot ? fmt.dayLong.format(new Date(slot.start)) : 'Unavailable'],
+                    ['Time', slot ? `${timeRange(slot)} (${tzLabel()})` : 'Unavailable'],
+                    ['Name', b.name],
+                    ['Email', b.email],
+                    ['Status', el('span', { class: `status-pill${b.status === 'cancelled' ? ' is-cancelled' : ''}`, text: b.status })],
+                ];
+                $('lookup-result').replaceChildren(...rows.map(([k, v]) => el('div', {}, el('dt', { text: k }), el('dd', {}, v))));
+                $('lookup-result').hidden = false;
+                lookupMessage(b.status === 'cancelled' ? 'This booking was cancelled.' : 'Booking found.');
             });
 
             // ---------- init ----------
